@@ -1,0 +1,34 @@
+<script type="text/javascript" src="js/sylvester.js"></script>
+<script type="text/javascript" src="js/glUtils.js"></script>
+<script type="text/javascript" src="js/demo.js"></script>
+<script type="text/javascript" src="js/event.js"></script>
+<script id="shader-fs" type="x-shader/x-fragment">
+	//varying lowp vec4 vColor;
+	varying highp vec2 vTextureCoord;
+	
+	uniform sampler2D uSampler;
+	void main(void){
+		gl_FragColor = texture2D(uSampler,vec2(vTextureCoord.s,vTextureCoord.t));//vColor;
+	}
+</script>
+<script id="shader-vs" type="x-shader/x-vertex">
+	attribute vec2 aVertexPosition;
+	//attribute vec4 aVertexColor;
+	attribute vec2 aTextureCoord;
+	
+	uniform mat4 uMVMatrix;
+	uniform mat4 uPMatrix;
+	
+	//varying lowp vec4 vColor;
+	varying highp vec2 vTextureCoord;
+	void main(void){
+		gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition,1.0,1.0);
+		//vColor = aVertexColor;
+		vTextureCoord = aTextureCoord;
+	}
+</script>
+<body onload="start()">
+  <canvas id="glcanvas" width="640" height="480">
+    Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
+  </canvas>
+</body>
